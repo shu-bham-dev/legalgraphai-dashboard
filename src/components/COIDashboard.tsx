@@ -3,13 +3,13 @@ import { useCOIStats, useDebounce, useFilteredCOIs, usePagination } from '../hoo
 import { useCOIContext } from '../context/COIContext';
 import type { COI, COIFormData, COIStatus, FilterExpiry, FilterStatus } from '../types/coi.types';
 import { Sidebar as SDbar } from 'lucide-react';
+import TableFilters from './Filter';
+import COITable from './Table';
+import COIModal from './Modal';
+import Sidebar from './sidebar';
 import Header from './header';
 import StatsCards from './statsCard';
-import TableFilters from './tableFilter';
-import COITable from './coiTable';
 import Pagination from './pagination';
-import COIModal from './coiModal';
-import Sidebar from './sidebar';
 
 
 const COIDashboard: React.FC = () => {
