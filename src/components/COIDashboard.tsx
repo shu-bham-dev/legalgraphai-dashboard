@@ -7,9 +7,9 @@ import TableFilters from './Filter';
 import COITable from './Table';
 import COIModal from './Modal';
 import Sidebar from './Sidebar';
-import Header from './Header';
-import StatsCards from './StatsCard';
 import Pagination from './Pagination';
+import StatsCards from './StatsCard';
+import Header from './Header';
 
 
 const COIDashboard: React.FC = () => {
