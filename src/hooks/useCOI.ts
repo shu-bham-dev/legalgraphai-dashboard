@@ -28,7 +28,8 @@ export const useCOIStats = (coiList: COI[]): COIStats => {
       total: coiList.length,
       accepted: coiList.filter(c => c.status === 'Active').length,
       rejected: coiList.filter(c => c.status === 'Rejected').length,
-      expiringSoon: coiList.filter(c => isExpiringWithinDays(c.expiryDate, 30)).length
+      // Count COIs that are either marked 'Expiring Soon' OR actually expire within 30 days
+      expiringSoon: coiList.filter(c => c.status === 'Expiring Soon' || isExpiringWithinDays(c.expiryDate, 30)).length
     };
   }, [coiList]);
 };
@@ -67,7 +68,8 @@ export const useFilteredCOIs = (
         if (filterExpiry === 'Expired') {
           matchesExpiry = expiryDate < today;
         } else if (filterExpiry === 'Expiring in 30 days') {
-          matchesExpiry = isExpiringWithinDays(coi.expiryDate, 30);
+          // Include items manually marked as 'Expiring Soon' as part of the 30-day filter
+          matchesExpiry = isExpiringWithinDays(coi.expiryDate, 30) || coi.status === 'Expiring Soon';
         } else if (filterExpiry === 'Expiring in 60 days') {
           matchesExpiry = isExpiringWithinDays(coi.expiryDate, 60);
         } else if (filterExpiry === 'Active') {

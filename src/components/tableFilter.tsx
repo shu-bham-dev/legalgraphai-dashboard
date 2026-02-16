@@ -43,7 +43,7 @@ const TableFilters: React.FC<TableFiltersProps> = ({
   const expiryOptions: FilterExpiry[] = ['All', 'Expired', 'Expiring in 30 days', 'Expiring in 60 days', 'Active'];
 
   return (
-    <div className="mb-6 flex items-center justify-between gap-4">
+    <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
       <div className="flex items-center gap-3">
         <div className="relative">
           <button
@@ -145,7 +145,7 @@ const TableFilters: React.FC<TableFiltersProps> = ({
       </div>
 
       <div className="flex items-center gap-3">
-        <div className="relative w-96">
+        <div className="relative w-full md:w-96">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
           <input
             type="text"

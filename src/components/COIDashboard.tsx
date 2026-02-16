@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useCOIStats, useDebounce, useFilteredCOIs, useLocalStorage, usePagination } from '../hooks/useCOI';
-import { initialCOIData } from '../mockData/insitalData';
+import React, { useState, useEffect } from 'react';
+import { useCOIStats, useDebounce, useFilteredCOIs, usePagination } from '../hooks/useCOI';
+import { useCOIContext } from '../context/COIContext';
 import type { COI, COIFormData, COIStatus, FilterExpiry, FilterStatus } from '../types/coi.types';
 import { Sidebar as SDbar } from 'lucide-react';
 import Header from './header';
@@ -14,8 +14,8 @@ import Sidebar from './sidebar';
 
 const COIDashboard: React.FC = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  // State management
-  const [coiList, setCoiList] = useLocalStorage<COI[]>('coiData', initialCOIData);
+  // Shared data from context
+  const { coiList, addCOI, updateCOI, deleteCOI, changeStatus, uniqueProperties } = useCOIContext();
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState('');
   const [filterProperty, setFilterProperty] = useState<string[]>([]);
@@ -37,10 +37,7 @@ const COIDashboard: React.FC = () => {
   // Calculate statistics
   const stats = useCOIStats(coiList);
 
-  // Get unique properties for filter
-  const uniqueProperties = useMemo(() => {
-    return Array.from(new Set(coiList.map(c => c.property)));
-  }, [coiList]);
+  // `uniqueProperties` is provided by context
 
   // Filter COIs
   const filteredCOIs = useFilteredCOIs(
@@ -83,14 +80,12 @@ const COIDashboard: React.FC = () => {
   };
 
   const handleStatusChange = (id: string, newStatus: COIStatus) => {
-    setCoiList(prev => prev.map(coi => 
-      coi.id === id ? { ...coi, status: newStatus } : coi
-    ));
+    changeStatus(id, newStatus);
   };
 
   const handleDelete = (id: string) => {
     if (window.confirm('Are you sure you want to delete this COI?')) {
-      setCoiList(prev => prev.filter(coi => coi.id !== id));
+      deleteCOI(id);
       setSelectedIds(prev => {
         const newSet = new Set(prev);
         newSet.delete(id);
@@ -105,27 +100,13 @@ const COIDashboard: React.FC = () => {
   };
 
   const handleAddCOI = (formData: COIFormData) => {
-    const newCOI: COI = {
-      id: Date.now().toString(),
-      property: formData.property || '',
-      tenantName: formData.tenantName || '',
-      tenantEmail: formData.tenantEmail || '',
-      unit: formData.unit || '',
-      coiName: formData.coiName || '',
-      expiryDate: formData.expiryDate || '',
-      status: formData.status || 'Not Processed',
-      reminderStatus: 'Not Sent',
-      createdAt: new Date().toISOString()
-    };
-    setCoiList(prev => [newCOI, ...prev]);
+    addCOI(formData);
     setShowAddModal(false);
   };
 
   const handleUpdateCOI = (formData: COIFormData) => {
     if (!editingCOI) return;
-    setCoiList(prev => prev.map(coi => 
-      coi.id === editingCOI.id ? { ...coi, ...formData } : coi
-    ));
+    updateCOI(editingCOI.id, formData);
     setShowEditModal(false);
     setEditingCOI(null);
   };
@@ -142,7 +123,7 @@ const COIDashboard: React.FC = () => {
     <div className="min-h-screen">
       <SDbar />
       <Sidebar collapsed={sidebarCollapsed} onToggle={(next) => setSidebarCollapsed(next)} />
-      <div className={`${sidebarCollapsed ? 'ml-16' : 'ml-56'} px-8 pb-7`}>
+      <div className={`transition-all duration-300 ${sidebarCollapsed ? 'md:ml-16' : 'md:ml-56'} ml-0 px-4 md:px-8 pb-7`}>
         <Header/>
         <StatsCards stats={stats} />
 
