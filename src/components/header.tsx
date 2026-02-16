@@ -10,7 +10,7 @@ const Header: React.FC = () => {
       </div>
       
       <div className="flex items-center gap-3">
-        <button className="px-5 py-2.5 bg-white border border-gray-300 text-blue-600 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2 font-medium text-sm">
+        <button className="px-5 py-2.5 bg-white border border-gray-300 text-blue-500 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2 font-medium text-sm">
           <span>Send Bulk Reminder</span>
           <ChevronDown size={16} className="text-gray-500" />
         </button>
@@ -20,7 +20,7 @@ const Header: React.FC = () => {
           <span>Ask LegalGraph AI</span>
         </button>
         
-        <button className="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 font-medium text-sm">
+        <button className="px-4 py-2.5 text-blue-500 rounded-lg border border-blue-500 transition-colors flex items-center gap-2 font-medium text-sm">
           <Info size={16} />
           <span>Help</span>
         </button>

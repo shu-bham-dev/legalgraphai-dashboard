@@ -13,6 +13,7 @@ import Sidebar from './sidebar';
 
 
 const COIDashboard: React.FC = () => {
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   // State management
   const [coiList, setCoiList] = useLocalStorage<COI[]>('coiData', initialCOIData);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -140,8 +141,8 @@ const COIDashboard: React.FC = () => {
   return (
     <div className="min-h-screen">
       <SDbar />
-      <Sidebar/>
-      <div className="ml-56 px-8 pb-7">
+      <Sidebar collapsed={sidebarCollapsed} onToggle={(next) => setSidebarCollapsed(next)} />
+      <div className={`${sidebarCollapsed ? 'ml-16' : 'ml-56'} px-8 pb-7`}>
         <Header/>
         <StatsCards stats={stats} />
 
