@@ -1,7 +1,7 @@
 import React from 'react';
-import { Pencil, MoreVertical, ArrowUpDown } from 'lucide-react';
+import { Pencil, MoreVertical } from 'lucide-react';
 import type { COI, COIStatus } from '../types/coi.types';
-import { formatDate, getStatusColor } from '../Utils/helper';
+import { formatDate } from '../Utils/helper';
 
 interface COITableProps {
   paginatedCOIs: COI[];

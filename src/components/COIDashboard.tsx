@@ -6,10 +6,10 @@ import { Sidebar as SDbar } from 'lucide-react';
 import TableFilters from './Filter';
 import COITable from './Table';
 import COIModal from './Modal';
-import Sidebar from './sidebar';
-import Header from './header';
-import StatsCards from './statsCard';
-import Pagination from './pagination';
+import Sidebar from './Sidebar';
+import Header from './Header';
+import StatsCards from './StatsCard';
+import Pagination from './Pagination';
 
 
 const COIDashboard: React.FC = () => {

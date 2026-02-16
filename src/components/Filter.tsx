@@ -120,7 +120,7 @@ const TableFilters: React.FC<TableFiltersProps> = ({
             onClick={() => setShowExpiryDropdown(!showExpiryDropdown)}
             className="px-4 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-2 text-sm font-normal"
           >
-            <span>Filter by Expiry</span>
+            <span>{filterExpiry}</span>
             <ChevronDown size={16} className="text-gray-500" />
           </button>
           {showExpiryDropdown && (

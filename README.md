@@ -1,3 +1,45 @@
+# COI Dashboard
+
+A small React + Vite + TypeScript dashboard for COI (Conflict of Interest) data.
+
+Prerequisites
+- Node.js 18+ (or latest LTS)
+- npm or yarn
+
+Setup
+1. Install dependencies
+
+```bash
+npm install
+```
+
+2. Run development server
+
+```bash
+npm run dev
+```
+
+The app will be available at http://localhost:5173 by default.
+
+Build
+
+```bash
+npm run build
+npm run preview
+```
+
+Lint
+
+```bash
+npm run lint
+```
+
+Project layout
+- `src/` — application source
+- `public/` — static assets
+
+Notes
+- Uses Vite for dev server and build. Scripts are defined in `package.json`.
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
